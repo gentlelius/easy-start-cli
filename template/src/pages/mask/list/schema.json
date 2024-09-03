@@ -1,0 +1,93 @@
+{
+  "type": "object",
+  "properties": {
+    "proTable_jj_br8": {
+      "title": "",
+      "type": "string",
+      "widget": "proTable",
+      "props": {
+        "searchAction2": true,
+        "navs": [
+          {
+            "navName": "新增"
+          }
+        ],
+        "columns": [
+          {
+            "dataIndex": "id",
+            "title": "id",
+            "hideInSearch": true,
+            "key": "id"
+          },
+          {
+            "dataIndex": "templateKey",
+            "title": "模板KEY",
+            "hideInSearch": false,
+            "key": "templateKey"
+          },
+          {
+            "dataIndex": "name",
+            "title": "模板名称",
+            "hideInSearch": false,
+            "key": "name"
+          },
+          {
+            "dataIndex": "description",
+            "title": "模板说明",
+            "hideInSearch": true,
+            "key": "description",
+            "width": 100,
+            "ellipsis": true
+          },
+          {
+            "dataIndex": "type",
+            "title": "模板类型",
+            "key": "type",
+            "useOtherConfig": true,
+            "otherConfig": "{\n    valueType: 'select',\n    onInit() {\n        return request('/message-center/template/templateType/select').then((res) => {\n            const { data } = res;\n            return data.map(item => ({\n                value: item.code,\n                label: item.text,\n            }));\n        });\n    }\n}"
+          },
+          {
+            "dataIndex": "auditStatus",
+            "title": "审核状态",
+            "key": "auditStatus",
+            "useOtherConfig": true,
+            "otherConfig": "{\n    valueType: 'select',\n    onInit() {\n        return request('/message-center/template/auditStatus/select').then((res) => {\n            const { data } = res;\n            return data.map(item => ({\n                value: item.code,\n                label: item.text,\n            }));\n        });\n    }\n}"
+          },
+          {
+            "dataIndex": "createTime",
+            "title": "创建时间",
+            "key": "createTime",
+            "hideInSearch": true,
+            "sorter": true
+          },
+          {
+            "dataIndex": "isEnable",
+            "title": "启用状态",
+            "key": "isEnable",
+            "useOtherConfig": true,
+            "otherConfig": "{\n    valueType: 'select',\n    onInit() {\n        return request('/message-center/template/availableStatus/select').then((res) => {\n            const { data } = res;\n            return data.map(item => ({\n                value: item.code,\n                label: item.text,\n            }));\n        });\n    },\n    valueEnum: {\n        false: {\n            status: 'Error',\n            text: '已禁用',\n        },\n        true: {\n            status: 'Success',\n            text: '已启用',\n        }\n    }\n}"
+          },
+          {
+            "dataIndex": "createTime",
+            "title": "创建时间",
+            "key": "createTime",
+            "useOtherConfig": true,
+            "otherConfig": "{\n    valueType: 'dateRange',\n    hideInTable: true,\n}"
+          }
+        ],
+        "request": "(params, sorter, filter) => {\n    const createTime = params.createTime || [];\n    const mapRule = {\n        'ascend': '+',\n        'descend': '-',\n    };\n    const orderConfig = Object.keys(sorter || {}).length === 0\n    ? 'createTime-'\n    : Object.entries(sorter).map(([key, value]) => `${key}${mapRule[value]}`).join('');\n    return request(\n        '/message-center/template/page',\n        {\n            method: 'get',\n            params: {\n                oderConfig: orderConfig,\n                pageSize: params.pageSize,\n                pageNumber: params.current,\n                ...getValidParams(params),\n                createTimeStart: createTime[0] ? createTime[0] + ' 00:00:00' : undefined,\n                createTimeEnd: createTime[1] ? createTime[1] + ' 23:59:59' : undefined,\n                createTime: undefined,\n            }\n        }\n    ).then((res) => {\n        const { success, data, total } = res || {};\n        if (success) {\n            return {\n                success: true,\n                data: data?.records ?? [],\n                pageSize: params.pageSize,\n                current: params.current,\n                total,\n            }\n        }\n    })\n}",
+        "actions": [
+          {
+            "actionName": "查看"
+          },
+          {
+            "actionName": "审核"
+          },
+          {
+            "actionName": "编辑"
+          }
+        ]
+      }
+    }
+  }
+}

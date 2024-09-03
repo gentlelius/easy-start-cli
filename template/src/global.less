@@ -1,0 +1,126 @@
+// 全局样式
+body {
+	margin: 0;
+}
+
+.ant-layout {
+	height: auto !important;
+}
+
+.modal-wrapper {
+	display: flex !important;
+}
+
+
+.common-modal() {
+	top: unset !important;
+	display: flex;
+	align-items: center;
+
+	// 这里暂时不自动适配宽度了，得调用方手动声明弹框的宽度
+	&.auto-width {
+		width: auto !important;
+	}
+
+	.ant-card-body {
+		padding-top: 0;
+		border: none;
+	}
+
+	.ant-modal-content {
+		flex: 1;
+	}
+}
+
+.editor-modal {
+	.ant-modal-confirm-btns {
+		display: none !important;
+	}
+
+	.common-modal();
+
+	.er-container {
+		padding-top: 24px;
+		padding-right: 24px;
+		margin-right: -24px;
+		max-height: 600px !important;
+		overflow: auto !important;
+	}
+}
+
+.inscroll-modal {
+	.common-modal();
+
+	.ant-card-body {
+		padding-right: 0 !important;
+		padding-left: 0 !important;
+	}
+
+	.ant-pro-card-body {
+		padding: 0;
+	}
+
+	.er-container {
+		max-height: 600px !important;
+		overflow: auto !important;
+	}
+}
+
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.flex-end {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.gap12 {
+	gap: 12px;
+}
+
+.mt20 {
+	margin-top: 20px;
+}
+
+.mr10 {
+	margin-right: 10px;
+}
+
+.mb20 {
+	margin-bottom: 20px;
+}
+
+.flex {
+	display: flex;
+}
+
+.column {
+	flex-direction: column;
+}
+
+.gap20 {
+	gap: 20px;
+}
+
+a:hover,
+a:active {
+	cursor: pointer;
+}
+
+.page-tab-nav {
+	.ant-tabs-nav {
+		padding-left: 24px;
+	}
+}
+
+.ant-pro-card .ant-pro-card-body {
+	padding-block: 0 !important;
+}
+
+.er-container .fr-tooltip-icon {
+  background-size: 100% 100% !important;
+}

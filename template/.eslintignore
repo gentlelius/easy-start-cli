@@ -1,0 +1,8 @@
+/config
+/dist
+public
+dist
+mock
+node_modules
+.history
+.umi
